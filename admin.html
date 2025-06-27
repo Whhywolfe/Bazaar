@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SATTA BAZAAR ONLINE - एडमिन पैनल</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Baloo 2', cursive;
+      background-color: #f4f6f9;
+      padding: 20px;
+      color: #222;
+    }
+
+    h1, h2, h3 {
+      text-align: center;
+      color: #0d47a1;
+      margin-bottom: 20px;
+    }
+
+    .section {
+      background-color: #ffffff;
+      border-left: 5px solid #0d47a1;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+
+    .input-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    input, textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      width: 220px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #0d47a1;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background-color: #08306b;
+    }
+
+    .old-value {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 5px;
+    }
+
+    .entry {
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      border-bottom: 1px dashed #ccc;
+      padding: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>एडमिन पैनल - SATTA BAZAAR</h1>
+
+  <!-- ✅ SECTION 1: GAME NUMBER UPDATE -->
+  <div class="section">
+    <h2>🎯 गेम नंबर अपडेट</h2>
+
+    <div>
+      <h3>गली</h3>
+      <div class="input-group">
+        <input type="text" id="GALIInput" placeholder="गली नंबर डालें">
+        <button onclick="updateGame('GALI')">अपडेट करें</button>
+      </div>
+      <div class="old-value" id="GALI-old"></div>
+    </div>
+
+    <div>
+      <h3>दिसावर</h3>
+      <div class="input-group">
+        <input type="text" id="DISAWARInput" placeholder="दिसावर नंबर डालें">
+        <button onclick="updateGame('DISAWAR')">अपडेट करें</button>
+      </div>
+      <div class="old-value" id="DISAWAR-old"></div>
+    </div>
+
+    <div>
+      <h3>फरीदाबाद</h3>
+      <div class="input-group">
+        <input type="text" id="FARIDABADInput" placeholder="फरीदाबाद नंबर डालें">
+        <button onclick="updateGame('FARIDABAD')">अपडेट करें</button>
+      </div>
+      <div class="old-value" id="FARIDABAD-old"></div>
+    </div>
+  </div>
+
+  <!-- ✅ SECTION 2: DEPOSIT APPROVAL -->
+  <div class="section">
+    <h2>💰 डिपॉजिट मंजूरी</h2>
+    <div class="input-group">
+      <input type="text" id="depositName" placeholder="नाम">
+      <input type="text" id="depositAmount" placeholder="₹ राशि">
+      <button onclick="approveDeposit()">Approve</button>
+    </div>
+    <div id="depositHistory"></div>
+  </div>
+
+  <!-- ✅ SECTION 3: WITHDRAWAL APPROVAL -->
+  <div class="section">
+    <h2>🏦 निकासी मंजूरी</h2>
+    <div class="input-group">
+      <input type="text" id="withdrawName" placeholder="नाम">
+      <input type="text" id="withdrawAmount" placeholder="₹ राशि">
+      <button onclick="approveWithdraw()">Approve</button>
+    </div>
+    <div id="withdrawHistory"></div>
+  </div>
+
+  <!-- ✅ SECTION 4: PAYMENT MANUAL UPDATE -->
+  <div class="section">
+    <h2>💸 मैन्युअल पेमेंट अपडेट</h2>
+    <div class="input-group">
+      <input type="text" id="manualName" placeholder="नाम">
+      <input type="text" id="manualAmount" placeholder="₹ जोड़ें">
+      <button onclick="manualPayment()">Update</button>
+    </div>
+    <div id="paymentHistory"></div>
+  </div>
+
+  <script>
+    const games = ['GALI', 'DISAWAR', 'FARIDABAD'];
+
+    window.onload = () => {
+      // Load game numbers
+      games.forEach(game => {
+        const val = localStorage.getItem(game) || 'अभी तक अपडेट नहीं';
+        document.getElementById(`${game}-old`).innerText = `पुराना नंबर: ${val}`;
+      });
+
+      // Load deposit, withdrawal, payment history
+      loadHistory('deposit', 'depositHistory');
+      loadHistory('withdraw', 'withdrawHistory');
+      loadHistory('payment', 'paymentHistory');
+    };
+
+    function updateGame(game) {
+      const val = document.getElementById(`${game}Input`).value.trim();
+      if (val === '') {
+        alert("नंबर डालें");
+        return;
+      }
+      localStorage.setItem(game, val);
+      document.getElementById(`${game}-old`).innerText = `पुराना नंबर: ${val}`;
+      alert(`${game} नंबर अपडेट किया गया!`);
+    }
+
+    function approveDeposit() {
+      const name = document.getElementById('depositName').value.trim();
+      const amount = document.getElementById('depositAmount').value.trim();
+      if (!name || !amount) return alert("सभी फ़ील्ड भरें");
+
+      saveHistory('deposit', `${name} ने ₹${amount} जमा किया`);
+      loadHistory('deposit', 'depositHistory');
+      alert("Deposit Approved!");
+    }
+
+    function approveWithdraw() {
+      const name = document.getElementById('withdrawName').value.trim();
+      const amount = document.getElementById('withdrawAmount').value.trim();
+      if (!name || !amount) return alert("सभी फ़ील्ड भरें");
+
+      saveHistory('withdraw', `${name} ने ₹${amount} निकाला`);
+      loadHistory('withdraw', 'withdrawHistory');
+      alert("Withdrawal Approved!");
+    }
+
+    function manualPayment() {
+      const name = document.getElementById('manualName').value.trim();
+      const amount = document.getElementById('manualAmount').value.trim();
+      if (!name || !amount) return alert("सभी फ़ील्ड भरें");
+
+      saveHistory('payment', `${name} को ₹${amount} ऐड किया गया`);
+      loadHistory('payment', 'paymentHistory');
+      alert("Payment Updated!");
+    }
+
+    function saveHistory(key, entry) {
+      const history = JSON.parse(localStorage.getItem(key + 'History') || '[]');
+      history.unshift(entry);
+      localStorage.setItem(key + 'History', JSON.stringify(history.slice(0, 10))); // max 10 entries
+    }
+
+    function loadHistory(key, elementId) {
+      const container = document.getElementById(elementId);
+      const history = JSON.parse(localStorage.getItem(key + 'History') || '[]');
+      container.innerHTML = history.map(e => `<div class="entry">✔️ ${e}</div>`).join('');
+    }
+  </script>
+
+</body>
+</html>
