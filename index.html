@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SATTA BAZAAR ONLINE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Baloo 2', cursive;
+      background: #fff8f0;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      background: #d32f2f;
+      color: white;
+      padding: 1rem;
+      font-size: 2rem;
+    }
+
+    nav {
+      background: #f44336;
+      padding: 1rem;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .result-box {
+      background: white;
+      margin: 1rem auto;
+      padding: 1rem;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .game-name {
+      font-size: 1.5rem;
+      margin-bottom: 0.3rem;
+      color: #e53935;
+    }
+
+    .number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #388e3c;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #ff9800;
+      color: white;
+      font-size: 0.8rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 5px;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    footer {
+      background: #eee;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+
+    .whatsapp {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>SATTA BAZAAR ONLINE</header>
+
+  <nav>
+    <a href="index.html">होम</a>
+    <a href="deposit.html">जमा</a>
+    <a href="withdraw.html">निकासी</a>
+    <a href="terms.html">शर्तें</a>
+    <a href="admin.html">एडमिन</a>
+  </nav>
+
+  <!-- Result Boxes -->
+  <div class="result-box">
+    <div class="game-name">गली</div>
+    <div class="number" id="gali">
+      <span id="gali-number">--</span>
+      <span class="badge" id="gali-badge">New</span>
+    </div>
+  </div>
+
+  <div class="result-box">
+    <div class="game-name">दिशावर</div>
+    <div class="number" id="dishawar">
+      <span id="dishawar-number">--</span>
+      <span class="badge" id="dishawar-badge">New</span>
+    </div>
+  </div>
+
+  <div class="result-box">
+    <div class="game-name">गाजियाबाद</div>
+    <div class="number" id="ghaziabad">
+      <span id="ghaziabad-number">--</span>
+      <span class="badge" id="ghaziabad-badge">New</span>
+    </div>
+  </div>
+
+  <footer>
+    संपर्क करें: <span class="whatsapp">+91 7014873689</span>
+  </footer>
+
+  <script>
+    const games = ["gali", "dishawar", "ghaziabad"];
+
+    games.forEach(id => {
+      const number = localStorage.getItem(id + "_number");
+      const time = localStorage.getItem(id + "_time");
+      const now = Date.now();
+
+      const numberEl = document.getElementById(id + "-number");
+      const badgeEl = document.getElementById(id + "-badge");
+
+      // Show number if set
+      if (number && numberEl) {
+        numberEl.innerText = number;
+      }
+
+      // Check if badge should be hidden
+      if (time && now - time > 3600000) { // 1 hour
+        if (badgeEl) badgeEl.style.display = "none";
+      }
+    });
+  </script>
+
+</body>
+</html>
