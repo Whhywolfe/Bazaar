@@ -1,0 +1,159 @@
+<!DOCTYPE html><html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SATTA BAZAAR ONLINE - एडमिन पैनल</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Baloo 2', cursive;
+      background: linear-gradient(to right, #e1f5fe, #fffde7);
+      padding: 2rem;
+      margin: 0;
+    }.login-box, .main-panel {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+h2, h3 {
+  text-align: center;
+  color: #d84315;
+}
+
+input, button, select, textarea {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.7rem;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+button {
+  background-color: #d84315;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.status {
+  margin-top: 1rem;
+  color: green;
+  font-weight: bold;
+  text-align: center;
+}
+
+.hidden { display: none; }
+
+hr {
+  margin: 2rem 0;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background: #d84315;
+  color: white;
+}
+
+.approved {
+  color: green;
+  font-weight: bold;
+}
+
+.pending {
+  color: orange;
+  font-weight: bold;
+}
+
+button.approve-btn {
+  background-color: #4caf50;
+}
+
+button.approve-btn:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+  </style>
+</head>
+<body>  <!-- 🔐 Login Section -->  <div class="login-box" id="loginBox">
+    <h2>🔒 SATTA BAZAAR ONLINE - एडमिन लॉगिन</h2>
+    <label for="adminPass">पासवर्ड दर्ज करें:</label>
+    <input type="password" id="adminPass" placeholder="उदाहरण: Vishal@4820">
+    <button onclick="checkPass()">लॉगिन</button>
+    <div class="status" id="loginStatus"></div>
+  </div>  <!-- ✅ Main Panel -->  <div class="main-panel hidden" id="mainPanel">
+    <h2>🎯 SATTA BAZAAR ONLINE - एडमिन पैनल</h2><!-- 🎯 Result Update Section -->
+<div class="form-box">
+  <label>खेल चुनें:</label>
+  <select id="game">
+    <option value="gali">गली</option>
+    <option value="dishawar">दिशावर</option>
+    <option value="ghaziabad">गाजियाबाद</option>
+  </select>
+
+  <label>नया नंबर डालें:</label>
+  <input type="text" id="number" placeholder="उदाहरण: 57" required>
+  <button onclick="updateNumber()">🎯 नंबर अपडेट करें</button>
+  <div class="status" id="status1"></div>
+</div>
+
+<hr>
+
+<!-- 💰 Payment Update Section -->
+<div class="form-box">
+  <label>Google Pay / PhonePe नंबर:</label>
+  <input type="text" id="gpay" placeholder="उदाहरण: 9876543210" />
+
+  <label>Paytm / UPI ID:</label>
+  <input type="text" id="paytm" placeholder="उदाहरण: abc@upi" />
+  <button onclick="updatePayments()">💰 पेमेंट विकल्प अपडेट करें</button>
+  <div class="status" id="status2"></div>
+</div>
+
+<hr>
+
+<!-- 📥 Deposit History Section -->
+<div class="form-box">
+  <h3>📥 डिपॉजिट अनुरोध</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>नाम</th>
+        <th>मोबाइल</th>
+        <th>राशि</th>
+        <th>UTR</th>
+        <th>नोट</th>
+        <th>समय</th>
+        <th>स्थिति</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="deposit-table"></tbody>
+  </table>
+</div>
+
+<hr>
+
+<!-- 🟧 Withdrawal Requests
+
+  
