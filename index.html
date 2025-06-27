@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SATTA BAZAAR ONLINE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Baloo 2', cursive;
+      background: #fff8f0;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      background: #d32f2f;
+      color: white;
+      padding: 1rem;
+      font-size: 2rem;
+    }
+
+    nav {
+      background: #f44336;
+      padding: 1rem;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .result-box {
+      background: white;
+      margin: 1rem auto;
+      padding: 1rem;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .game-name {
+      font-size: 1.5rem;
+      margin-bottom: 0.3rem;
+      color: #e53935;
+    }
+
+    .number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #388e3c;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #ff9800;
+      color: white;
+      font-size: 0.8rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 5px;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    footer {
+      background: #eee;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+
+    .whatsapp {
+      color: green;
+      font-weight: bold;
+    }
+
+    input, select, button {
+      padding: 10px;
+      margin: 8px 0;
+      width: 85%;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    button {
+      background: #4caf50;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 10px;
+      border-collapse: collapse;
+      font-size: 1rem;
+    }
+
+    th, td {
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background: #f44336;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <header>SATTA BAZAAR ONLINE</header>
+
+  <nav>
+    <a href="index.html">होम</a>
+    <a href="deposit.html">जमा</a>
+    <a href="withdraw.html">निकासी</a>
+    <a href="terms.html">शर्तें</a>
+    <a href="admin.html">एडमिन</a>
+  </nav>
+
+  <!-- Result Boxes -->
+  <div class="result-box">
+    <div class="game-name">गली</div>
+    <div class="number" id="gali">
+      <span id="gali-number">--</span>
+      <span class="badge" id="gali-badge">New</span>
+    </div>
+  </div>
+
+  <div class="result-box">
+    <div class="game-name">दिशावर</div>
+    <div class="number" id="dishawar">
+      <span id="dishawar-number">--</span>
+      <span class="badge" id="dishawar-badge">New</span>
+    </div>
+  </div>
+
+  <div class="result-box">
+    <div class="game-name">गाजियाबाद</div>
+    <div class="number" id="ghaziabad">
+      <span id="ghaziabad-number">--</span>
+      <span class="badge" id="ghaziabad-badge">New</span>
+    </div>
+  </div>
+
+  <!-- Balance Section -->
+  <div class="result-box" style="background:#e8f5e9; color:#1b5e20;">
+    <div class="game-name">🪙 आपकी बैलेंस: ₹<span id="user-balance">0</span></div>
+  </div>
+
+  <!-- Game Play Form -->
+  <div class="result-box">
+    <div class="game-name">🎮 गेम लगाएं</div>
+    <form id="game-form">
+      <select id="game-name" required>
+        <option value="">गेम चुनें</option>
+        <option value="गली">गली</option>
+        <option value="दिशावर">दिशावर</option>
+        <option value="गाजियाबाद">गाजियाबाद</option>
+      </select>
+      <input type="number" id="game-number" min="0" max="99" required placeholder="नंबर (0-99)" />
+      <input type="number" id="bet-amount" min="10" required placeholder="राशि (₹)" />
+      <button type="submit">Play Now</button>
+    </form>
+  </div>
+
+  <!-- Game History -->
+  <div class="result-box">
+    <div class="game-name">📜 गेम हिस्ट्री</div>
+    <table>
+      <thead>
+        <tr>
+          <th>गेम</th>
+          <th>नंबर</th>
+          <th>राशि</th>
+          <th>समय</th>
+        </tr>
+      </thead>
+      <tbody id="history-body"></tbody>
+    </table>
+  </div>
+
+  <footer>
+    संपर्क करें: <span class="whatsapp">+91 7014873689</span>
+  </footer>
+
+  <script>
+    // Result display
+    const games = ["gali", "dishawar", "ghaziabad"];
+    games.forEach(id => {
+      const number = localStorage.getItem(id + "_number");
+      const time = localStorage.getItem(id + "_time");
+      const now = Date.now();
+      const numberEl = document.getElementById(id + "-number");
+      const badgeEl = document.getElementById(id + "-badge");
+
+      if (number && numberEl) numberEl.innerText = number;
+      if (time && now - time > 3600000) {
+        if (badgeEl) badgeEl.style.display = "none";
+      }
+    });
+
+    // Balance & game logic
+    let balance = parseInt(localStorage.getItem("userBalance")) || 500;
+    document.getElementById("user-balance").textContent = balance;
+
+    function updateBalance(newBal) {
+      balance = newBal;
+      localStorage.setItem("userBalance", balance);
+      document.getElementById("user-balance").textContent = balance;
+    }
+
+    function addToHistory(game, num, amt) {
+      const body = document.getElementById("history-body");
+      const row = document.createElement("tr");
+      row.innerHTML = `<td>${game}</td><td>${num}</td><td>₹${amt}</td><td>${new Date().toLocaleTimeString()}</td>`;
+      body.prepend(row);
+    }
+
+    document.getElementById("game-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const game = document.getElementById("game-name").value;
+      const num = parseInt(document.getElementById("game-number").value);
+      const amt = parseInt(document.getElementById("bet-amount").value);
+
+      if (!game) {
+        alert("कृपया गेम चुनें");
+        return;
+      }
+
+      if (amt > balance) {
+        alert("❌ बैलेंस कम है!");
+        return;
+      }
+
+      updateBalance(balance - amt);
+      addToHistory(game, num, amt);
+      e.target.reset();
+    });
+  </script>
+
+</body>
+</html>
