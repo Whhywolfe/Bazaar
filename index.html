@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SATTA BAZAAR ONLINE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Teko:wght@500&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Baloo 2', cursive;
+      background: linear-gradient(to bottom, #ffe9d6, #fff);
+      color: #222;
+    }
+    header {
+      background: linear-gradient(to right, #ff5e00, #ff8800);
+      padding: 20px;
+      text-align: center;
+      color: white;
+      font-family: 'Teko', sans-serif;
+      font-size: 36px;
+      letter-spacing: 2px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .container {
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .game-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .game-card:hover {
+      transform: scale(1.01);
+    }
+    .game-title {
+      font-family: 'Teko', sans-serif;
+      font-size: 28px;
+      color: #ff5e00;
+      margin: 0;
+    }
+    .game-number {
+      font-size: 24px;
+      margin: 10px 0;
+      font-weight: bold;
+      color: #222;
+    }
+    .new-badge {
+      background-color: red;
+      color: white;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-left: 8px;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0.5; }
+    }
+    .game-btn {
+      margin-top: 10px;
+      background-color: #ff5e00;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Baloo 2', cursive;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .game-btn:hover {
+      background-color: #e85600;
+    }
+    .footer {
+      text-align: center;
+      font-size: 14px;
+      padding: 20px;
+      color: #555;
+      background-color: #fff0e4;
+    }
+  </style>
+</head>
+<body>
+
+  <header>🎰 SATTA BAZAAR ONLINE 🎰</header>
+
+  <div class="container">
+
+    <!-- Game Cards -->
+    <div class="game-card">
+      <h2 class="game-title">DELHI BAZAAR</h2>
+      <div class="game-number">345 <span class="new-badge">NEW</span></div>
+      <a href="game.html?game=delhi" class="game-btn">Game Lagao</a>
+    </div>
+
+    <div class="game-card">
+      <h2 class="game-title">MUMBAI BAZAAR</h2>
+      <div class="game-number">128</div>
+      <a href="game.html?game=mumbai" class="game-btn">Game Lagao</a>
+    </div>
+
+    <div class="game-card">
+      <h2 class="game-title">RAJASTHAN</h2>
+      <div class="game-number">690</div>
+      <a href="game.html?game=rajasthan" class="game-btn">Game Lagao</a>
+    </div>
+
+    <div class="game-card">
+      <h2 class="game-title">DESAWAR</h2>
+      <div class="game-number">872</div>
+      <a href="game.html?game=desawar" class="game-btn">Game Lagao</a>
+    </div>
+
+    <div class="game-card">
+      <h2 class="game-title">GALI</h2>
+      <div class="game-number">221</div>
+      <a href="game.html?game=gali" class="game-btn">Game Lagao</a>
+    </div>
+
+    <div class="game-card">
+      <h2 class="game-title">FARIDABAD</h2>
+      <div class="game-number">406</div>
+      <a href="game.html?game=faridabad" class="game-btn">Game Lagao</a>
+    </div>
+
+    <div class="game-card">
+      <h2 class="game-title">GHAZIABAD</h2>
+      <div class="game-number">105</div>
+      <a href="game.html?game=ghaziabad" class="game-btn">Game Lagao</a>
+    </div>
+
+    <div class="game-card">
+      <h2 class="game-title">PUNJAB EXPRESS</h2>
+      <div class="game-number">567</div>
+      <a href="game.html?game=punjab" class="game-btn">Game Lagao</a>
+    </div>
+
+    <!-- Payment and Admin -->
+    <div class="game-card">
+      <h2 class="game-title">💰 Deposit / Withdraw</h2>
+      <a href="deposit.html" class="game-btn">Deposit Karein</a>
+      <a href="withdraw.html" class="game-btn" style="background-color:#00aa00">Nikasi Karein</a>
+    </div>
+
+    <div class="game-card">
+      <h2 class="game-title">🧾 Balance & History</h2>
+      <a href="balance.html" class="game-btn">Balance Dekhein</a>
+      <a href="history.html" class="game-btn">Game History</a>
+    </div>
+
+    <div class="game-card">
+      <h2 class="game-title">🔐 Admin Panel</h2>
+      <a href="admin.html" class="game-btn">Admin Login</a>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    📞 संपर्क करें: <strong>WhatsApp 9876543210</strong><br/>
+    © 2025 Satta Bazaar Online. All rights reserved.
+  </div>
+
+</body>
+</html>
