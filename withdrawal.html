@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>निकासी करें - SATTA BAZAAR ONLINE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Baloo 2', cursive;
+      background: linear-gradient(to right, #e3f2fd, #fce4ec);
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #1976d2;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      font-size: 1.1rem;
+      display: block;
+      margin-top: 1rem;
+      color: #333;
+    }
+
+    input, textarea, button {
+      width: 100%;
+      padding: 0.8rem;
+      margin-top: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      background-color: #1976d2;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0d47a1;
+    }
+
+    .status {
+      text-align: center;
+      color: green;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>निकासी करें</h2>
+
+    <form id="withdrawForm">
+      <label for="name">नाम:</label>
+      <input type="text" id="name" required>
+
+      <label for="phone">फोन नंबर:</label>
+      <input type="tel" id="phone" required>
+
+      <label for="amount">निकासी राशि (₹):</label>
+      <input type="number" id="amount" required>
+
+      <label for="upiOrAccount">UPI ID या बैंक खाता:</label>
+      <input type="text" id="upiOrAccount" placeholder="abc@upi या खाता संख्या" required>
+
+      <label for="ifsc">IFSC कोड (यदि बैंक अकाउंट हो):</label>
+      <input type="text" id="ifsc" placeholder="उदाहरण: SBIN0001234">
+
+      <label for="note">नोट (यदि कोई हो):</label>
+      <textarea id="note" placeholder="कोई टिप्पणी लिखें..."></textarea>
+
+      <button type="submit">भेजें</button>
+      <div class="status" id="statusMsg"></div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("withdrawForm");
+    const status = document.getElementById("statusMsg");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const data = {
+        name: document.getElementById("name").value.trim(),
+        phone: document.getElementById("phone").value.trim(),
+        amount: document.getElementById("amount").value.trim(),
+        upiOrAccount: document.getElementById("upiOrAccount").value.trim(),
+        ifsc: document.getElementById("ifsc").value.trim(),
+        note: document.getElementById("note").value.trim(),
+        time: new Date().toLocaleString(),
+        status: "pending"
+      };
+
+      const existing = JSON.parse(localStorage.getItem("withdrawals") || "[]");
+      existing.push(data);
+      localStorage.setItem("withdrawals", JSON.stringify(existing));
+
+      form.reset();
+      status.textContent = "✅ निकासी अनुरोध सफलतापूर्वक जमा हो गया है!";
+      setTimeout(() => status.textContent = "", 5000);
+    });
+  </script>
+
+</body>
+</html>
