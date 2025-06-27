@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login - Satta Bazaar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Baloo 2', cursive;
+      background: linear-gradient(135deg, #2c3e50, #4ca1af);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 30px 25px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      max-width: 360px;
+      width: 90%;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    h2 {
+      font-size: 28px;
+      margin-bottom: 15px;
+      color: #ffeb3b;
+    }
+
+    p.create-note {
+      font-size: 0.95rem;
+      color: #ffc107;
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 12px;
+      width: 100%;
+      margin: 12px 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      outline: none;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    button {
+      padding: 12px;
+      width: 100%;
+      font-size: 1.1rem;
+      background: linear-gradient(to right, #ff512f, #dd2476);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #dd2476, #ff512f);
+    }
+
+    .note {
+      color: #ffcccb;
+      font-size: 0.9rem;
+      margin-top: 15px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>📱 नाम और मोबाइल से लॉगिन</h2>
+
+    <p class="create-note">
+      पहली बार लॉगिन कर रहे हैं? बस जानकारी भरें और लॉगिन करें।
+    </p>
+
+    <input type="text" id="username" placeholder="अपना नाम डालें" />
+    <input type="tel" id="mobile" placeholder="मोबाइल नंबर (10 अंक)" pattern="[0-9]{10}" />
+    <button onclick="login()">लॉगिन करें</button>
+
+    <p id="msg" class="note"></p>
+  </div>
+
+  <script>
+    function login() {
+      const name = document.getElementById("username").value.trim();
+      const mobile = document.getElementById("mobile").value.trim();
+      const msg = document.getElementById("msg");
+
+      if (!name || !/^[0-9]{10}$/.test(mobile)) {
+        msg.innerText = "❌ कृपया सही नाम और 10 अंकों वाला मोबाइल नंबर भरें।";
+        return;
+      }
+
+      // Save login state in LocalStorage
+      localStorage.setItem("userLogin", JSON.stringify({ name, mobile }));
+
+      // Set default balance if not already present
+      if (!localStorage.getItem("userBalance")) {
+        localStorage.setItem("userBalance", "500");
+      }
+
+      msg.innerText = "✅ लॉगिन सफल! आपको होमपेज पर ले जाया जा रहा है...";
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
